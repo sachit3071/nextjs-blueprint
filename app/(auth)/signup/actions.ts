@@ -2,7 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import { Profile } from "@/types";
+import { User } from "@/types";
 
 export async function signup(
   prevState: {
@@ -101,22 +101,23 @@ export async function signup(
     return { error: "Failed to create user account." };
   }
 
-  const profile: Profile = {
+  const userData = {
     user_id: data.user.id,
     first_name: firstName,
     last_name: lastName,
     email,
     created_at: new Date(),
+    role: "user",
   }
 
-  const { data: profileData, error: profileError } = await supabase
+  const { error: userError } = await supabase
     .from("profiles")
-    .insert(profile)
+    .insert(userData)
     .select()
     .single();
 
-  if (profileError) {
-    console.error("Profile creation error:", profileError.message);
+  if (userError) {
+    console.error("User creation error:", userError.message);
   }
 
   // Redirect after signup

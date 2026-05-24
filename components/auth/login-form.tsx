@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useActionState } from "react";
 
-import { login } from "@/app/(auth)/login/actions";
+import { login } from "@/app/(auth)/signin/actions";
 import { cn } from "@/lib/utils";
 
 import { Button } from "@/components/ui/button";
